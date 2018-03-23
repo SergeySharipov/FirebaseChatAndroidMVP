@@ -1,37 +1,67 @@
 package ca.sharipov.sergey.firebasechatandroidmvp.ui.registration;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import ca.sharipov.sergey.firebasechatandroidmvp.R;
+
+import static ca.sharipov.sergey.firebasechatandroidmvp.AppConstants.MINIMUM_PASSWORD_LENGTH;
+import static ca.sharipov.sergey.firebasechatandroidmvp.AppConstants.MINIMUM_USERNAME_LENGTH;
 
 public class RegistrationFragment extends Fragment implements RegistrationContract.View {
 
     public RegistrationFragment() {
     } // Required empty public constructor
 
-//    public static ProfileFragment newInstance(String param1, String param2) {
-//        ProfileFragment fragment = new ProfileFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText("Hello");
-        return textView;
+        View view = inflater.inflate(R.layout.fragment_registration, container, false);
+
+        return view;
     }
 
+    @Override
+    public void showErrorEmailRequired() {
+        getString(R.string.registration_error_field_required);
+    }
+
+    @Override
+    public void showErrorEmailInvalid() {
+        getString(R.string.registration_error_email_invalid);
+    }
+
+    @Override
+    public void showErrorPasswordRequired() {
+        getString(R.string.registration_error_field_required);
+    }
+
+    @Override
+    public void showErrorPasswordTooShort() {
+        getString(R.string.registration_error_password_too_short, MINIMUM_PASSWORD_LENGTH);
+    }
+
+    @Override
+    public void showErrorConfirmPasswordRequired() {
+        getString(R.string.registration_error_field_required);
+    }
+
+    @Override
+    public void showErrorPasswordsNotSame() {
+        getString(R.string.registration_error_password_not_same);
+    }
+
+    @Override
+    public void showErrorUsernameRequired() {
+        getString(R.string.registration_error_field_required);
+    }
+
+    @Override
+    public void showErrorUsernameTooShort() {
+        getString(R.string.registration_error_username_too_short, MINIMUM_USERNAME_LENGTH);
+    }
 }

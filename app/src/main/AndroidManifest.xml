@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ca.sharipov.sergey.firebasechatandroidmvp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -19,16 +21,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.profile.ProfileActivity" />
-        <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".ui.registration.RegistrationActivity" />
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:label="@string/profile_title" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/login_title" />
+        <activity
+            android:name=".ui.registration.RegistrationActivity"
+            android:label="@string/registration_title"
+            android:parentActivityName=".ui.login.LoginActivity" />
         <activity
             android:name=".ui.chat.ChatActivity"
-            android:label="@string/title_activity_chat"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.settings.SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/chat_title" />
     </application>
 
 </manifest>

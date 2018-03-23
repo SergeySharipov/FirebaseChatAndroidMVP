@@ -14,4 +14,5 @@ class ChatsPresenter implements ChatsContract.Presenter {
         this.view = null;
     }
 
+
 }

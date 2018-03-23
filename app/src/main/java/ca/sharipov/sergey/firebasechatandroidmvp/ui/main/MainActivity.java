@@ -1,5 +1,6 @@
 package ca.sharipov.sergey.firebasechatandroidmvp.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -19,20 +20,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.sharipov.sergey.firebasechatandroidmvp.R;
+import ca.sharipov.sergey.firebasechatandroidmvp.ui.login.LoginActivity;
 import ca.sharipov.sergey.firebasechatandroidmvp.ui.main.chats.ChatsFragment;
 import ca.sharipov.sergey.firebasechatandroidmvp.ui.main.contacts.ContactsFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
+
+    private MainContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mPresenter = new MainPresenter();
+        mPresenter.takeView(this);
+
+        setTitle(R.string.main_title);
+
         initNavigation();
 
         initViewPager();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.dropView();
     }
 
     private void initNavigation() {
@@ -41,7 +56,8 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar,
+                R.string.main_navigation_drawer_open, R.string.main_navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -53,8 +69,9 @@ public class MainActivity extends AppCompatActivity
         ViewPager viewPager = findViewById(R.id.view_pager);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ChatsFragment(), "FRAG1");
-        adapter.addFragment(new ContactsFragment(), "FRAG2");
+        adapter.addFragment(new ChatsFragment(), "CHATS");
+        adapter.addFragment(new ChatsFragment(), "GROUP CHATS");    //TODO GROUP CHATS
+        adapter.addFragment(new ContactsFragment(), "CONTACTS");
 
         viewPager.setAdapter(adapter);
 
@@ -103,6 +120,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void launchLoginActivity() {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 }
 
 class ViewPagerAdapter extends FragmentPagerAdapter {
