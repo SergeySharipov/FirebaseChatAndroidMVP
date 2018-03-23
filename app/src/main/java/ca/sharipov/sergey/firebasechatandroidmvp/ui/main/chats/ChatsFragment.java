@@ -1,4 +1,4 @@
-package ca.sharipov.sergey.firebasechatandroidmvp.main.chats;
+package ca.sharipov.sergey.firebasechatandroidmvp.ui.main.chats;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,29 +16,15 @@ import android.widget.TextView;
 import java.util.List;
 
 import ca.sharipov.sergey.firebasechatandroidmvp.R;
-import ca.sharipov.sergey.firebasechatandroidmvp.main.dummy.DummyContent;
-import ca.sharipov.sergey.firebasechatandroidmvp.main.dummy.DummyContent.DummyItem;
+import ca.sharipov.sergey.firebasechatandroidmvp.ui.main.dummy.DummyContent;
+import ca.sharipov.sergey.firebasechatandroidmvp.ui.main.dummy.DummyContent.DummyItem;
 
-public class ChatsFragment extends Fragment {
+public class ChatsFragment extends Fragment implements ChatsContract.View {
 
     private OnListFragmentInteractionListener mListener;
 
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(DummyItem item);
-    }
-
     public ChatsFragment() {
     }
-
-//    // TODO: Customize parameter initialization
-//    @SuppressWarnings("unused")
-//    public static ChatsFragment newInstance(int columnCount) {
-//        ChatsFragment fragment = new ChatsFragment();
-//        Bundle args = new Bundle();
-//        args.putInt(ARG_COLUMN_COUNT, columnCount);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +41,16 @@ public class ChatsFragment extends Fragment {
         }
         return view;
     }
+
+//
+//    @SuppressWarnings("unused")
+//    public static ChatsFragment newInstance(int columnCount) {
+//        ChatsFragment fragment = new ChatsFragment();
+//        Bundle args = new Bundle();
+//        args.putInt(ARG_COLUMN_COUNT, columnCount);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -73,6 +69,10 @@ public class ChatsFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public interface OnListFragmentInteractionListener {
+        void onListFragmentInteraction(DummyItem item);
     }
 
 //    @Override
@@ -99,7 +99,7 @@ class ChatsRecyclerViewAdapter extends RecyclerView.Adapter<ChatsRecyclerViewAda
     private final List<DummyItem> mValues;
     private final ChatsFragment.OnListFragmentInteractionListener mListener;
 
-    public ChatsRecyclerViewAdapter(List<DummyItem> items, ChatsFragment.OnListFragmentInteractionListener listener) {
+    ChatsRecyclerViewAdapter(List<DummyItem> items, ChatsFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -107,7 +107,7 @@ class ChatsRecyclerViewAdapter extends RecyclerView.Adapter<ChatsRecyclerViewAda
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_chats, parent, false);
+                .inflate(R.layout.item_chat, parent, false);
         return new ViewHolder(view);
     }
 
@@ -122,19 +122,19 @@ class ChatsRecyclerViewAdapter extends RecyclerView.Adapter<ChatsRecyclerViewAda
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        final View mView;
+        final TextView mIdView;
+        final TextView mContentView;
+        DummyItem mItem;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = view.findViewById(R.id.id);
+            mContentView = view.findViewById(R.id.content);
         }
 
-        public void bind(DummyItem item) {
+        void bind(DummyItem item) {
             mItem = item;
 
             mIdView.setText(mItem.id);
@@ -148,11 +148,6 @@ class ChatsRecyclerViewAdapter extends RecyclerView.Adapter<ChatsRecyclerViewAda
                     }
                 }
             });
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
         }
     }
 }

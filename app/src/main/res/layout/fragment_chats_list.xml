@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="ca.sharipov.sergey.firebasechatandroidmvp.main.chats.ChatsFragment"
-    tools:listitem="@layout/fragment_chats" />
+    tools:context=".ui.main.chats.ChatsFragment"
+    tools:listitem="@layout/item_chat" />

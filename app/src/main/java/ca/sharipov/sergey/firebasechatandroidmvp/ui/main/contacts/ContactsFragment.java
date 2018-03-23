@@ -1,4 +1,4 @@
-package ca.sharipov.sergey.firebasechatandroidmvp.main.contacts;
+package ca.sharipov.sergey.firebasechatandroidmvp.ui.main.contacts;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,21 +13,22 @@ import android.widget.TextView;
 import java.util.List;
 
 import ca.sharipov.sergey.firebasechatandroidmvp.R;
-import ca.sharipov.sergey.firebasechatandroidmvp.main.dummy.DummyContent;
-import ca.sharipov.sergey.firebasechatandroidmvp.main.dummy.DummyContent.DummyItem;
+import ca.sharipov.sergey.firebasechatandroidmvp.ui.main.dummy.DummyContent;
+import ca.sharipov.sergey.firebasechatandroidmvp.ui.main.dummy.DummyContent.DummyItem;
 
 public class ContactsFragment extends Fragment {
 
     private OnListFragmentInteractionListener mListener;
 
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(DummyItem item);
-    }
-
     public ContactsFragment() {
     }
 
-//    // TODO: Customize parameter initialization
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+//
 //    @SuppressWarnings("unused")
 //    public static ChatsFragment newInstance(int columnCount) {
 //        ChatsFragment fragment = new ChatsFragment();
@@ -36,11 +37,6 @@ public class ContactsFragment extends Fragment {
 //        fragment.setArguments(args);
 //        return fragment;
 //    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +50,10 @@ public class ContactsFragment extends Fragment {
             recyclerView.setAdapter(new ContactsRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
+    }
+
+    public interface OnListFragmentInteractionListener {
+        void onListFragmentInteraction(DummyItem item);
     }
 
 //    @Override
@@ -92,12 +92,13 @@ public class ContactsFragment extends Fragment {
 //        mListener = null;
 //    }
 }
+
 class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerViewAdapter.ViewHolder> {
 
     private final List<DummyItem> mValues;
     private final ContactsFragment.OnListFragmentInteractionListener mListener;
 
-    public ContactsRecyclerViewAdapter(List<DummyItem> items, ContactsFragment.OnListFragmentInteractionListener listener) {
+    ContactsRecyclerViewAdapter(List<DummyItem> items, ContactsFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -105,24 +106,13 @@ class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerV
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_chats, parent, false);
+                .inflate(R.layout.item_chat, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
+        holder.bind(mValues.get(position));
     }
 
     @Override
@@ -130,26 +120,33 @@ class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerV
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        final View mView;
+        final TextView mIdView;
+        final TextView mContentView;
+        DummyItem mItem;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = view.findViewById(R.id.id);
+            mContentView = view.findViewById(R.id.content);
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
-        }
+        void bind(DummyItem item) {
+            mItem = item;
 
-        public void bind(DummyItem item) {
+            mIdView.setText(mItem.id);
+            mContentView.setText(mItem.content);
 
+            mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != mListener) {
+                        mListener.onListFragmentInteraction(mItem);
+                    }
+                }
+            });
         }
     }
 }

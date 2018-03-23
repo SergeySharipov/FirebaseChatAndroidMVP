@@ -1,4 +1,4 @@
-package ca.sharipov.sergey.firebasechatandroidmvp.main.dummy;
+package ca.sharipov.sergey.firebasechatandroidmvp.ui.main.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
