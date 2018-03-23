@@ -16,13 +16,15 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
+                app:elevation="0dp"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.AppBarLayout>
@@ -31,12 +33,12 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabMode="fixed"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             app:tabGravity="fill"
-            app:tabTextColor="#FFF"
-            app:tabSelectedTextColor="@color/colorAccent" />
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextColor="#FFF" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"

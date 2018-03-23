@@ -1,4 +1,4 @@
-package ca.sharipov.sergey.firebasechatandroidmvp.ui.profile;
+package ca.sharipov.sergey.firebasechatandroidmvp.ui.chat;
 
 
 import android.os.Bundle;
@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class ProfileFragment extends Fragment implements ProfileContract.View {
+public class ChatFragment extends Fragment implements ChatContract.View {
 
-    public ProfileFragment() {
+    public ChatFragment() {
     } // Required empty public constructor
 
 //    public static ProfileFragment newInstance(String param1, String param2) {

@@ -21,7 +21,7 @@ public class ContactsFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
 
     public ContactsFragment() {
-    }
+    } // Required empty public constructor
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

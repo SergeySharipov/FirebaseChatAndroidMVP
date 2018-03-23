@@ -24,7 +24,7 @@ public class ChatsFragment extends Fragment implements ChatsContract.View {
     private OnListFragmentInteractionListener mListener;
 
     public ChatsFragment() {
-    }
+    } // Required empty public constructor
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

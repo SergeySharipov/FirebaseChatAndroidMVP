@@ -1,5 +1,4 @@
-package ca.sharipov.sergey.firebasechatandroidmvp.ui.profile;
-
+package ca.sharipov.sergey.firebasechatandroidmvp.ui.registration;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class ProfileFragment extends Fragment implements ProfileContract.View {
+public class RegistrationFragment extends Fragment implements RegistrationContract.View {
 
-    public ProfileFragment() {
+    public RegistrationFragment() {
     } // Required empty public constructor
 
 //    public static ProfileFragment newInstance(String param1, String param2) {

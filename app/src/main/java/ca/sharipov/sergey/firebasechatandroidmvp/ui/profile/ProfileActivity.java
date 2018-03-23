@@ -1,15 +1,13 @@
 package ca.sharipov.sergey.firebasechatandroidmvp.ui.profile;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 
-import ca.sharipov.sergey.firebasechatandroidmvp.R;
+import ca.sharipov.sergey.firebasechatandroidmvp.ui.SingleFragmentActivity;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends SingleFragmentActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragment_container);
+    protected Fragment createFragment() {
+        return new ProfileFragment();
     }
 }
