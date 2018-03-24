@@ -33,10 +33,14 @@ interface LoginContract {
 
         void attemptLogin(String email, String password);
 
+        void signInSuccess();
+
+        void signInFailure(String errorCode);
     }
 
     interface Model {
 
+        void signInWithEmailAndPassword(String email, String password);
 
     }
 
