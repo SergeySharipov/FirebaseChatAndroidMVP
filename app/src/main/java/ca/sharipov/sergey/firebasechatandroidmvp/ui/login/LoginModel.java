@@ -37,8 +37,10 @@ public class LoginModel implements LoginContract.Model {
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "signInWithEmailAndPassword:onComplete: "
                                 + e.getMessage());
-                        String errorCode = ((FirebaseAuthException) e).getErrorCode();
-                        presenter.signInFailure(errorCode);
+                        if (e instanceof FirebaseAuthException) {
+                            String errorCode = ((FirebaseAuthException) e).getErrorCode();
+                            presenter.signInFailure(errorCode);
+                        }
                     }
                 });
     }
