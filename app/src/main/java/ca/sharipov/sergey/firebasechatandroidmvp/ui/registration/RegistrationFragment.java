@@ -1,6 +1,7 @@
 package ca.sharipov.sergey.firebasechatandroidmvp.ui.registration;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,11 +9,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import ca.sharipov.sergey.firebasechatandroidmvp.R;
+import ca.sharipov.sergey.firebasechatandroidmvp.databinding.FragmentRegistrationBinding;
 import ca.sharipov.sergey.firebasechatandroidmvp.ui.main.MainActivity;
 
 import static ca.sharipov.sergey.firebasechatandroidmvp.AppConstants.MINIMUM_PASSWORD_LENGTH;
@@ -22,11 +22,7 @@ public class RegistrationFragment extends Fragment implements RegistrationContra
 
     private RegistrationContract.Presenter presenter;
 
-    private EditText etEmail;
-    private EditText etPassword;
-    private EditText etPasswordConfirm;
-    private EditText etUsername;
-    private ProgressBar progressBar;
+    private FragmentRegistrationBinding binding;
 
     public RegistrationFragment() {
     } // Required empty public constructor
@@ -40,28 +36,21 @@ public class RegistrationFragment extends Fragment implements RegistrationContra
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_registration, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
 
-        etEmail = v.findViewById(R.id.et_email);
-        etPassword = v.findViewById(R.id.et_password);
-        etPasswordConfirm = v.findViewById(R.id.et_password_confirm);
-        etUsername = v.findViewById(R.id.et_username);
-
-        progressBar = v.findViewById(R.id.progress_bar);
-
-        v.findViewById(R.id.btn_registration).setOnClickListener(new View.OnClickListener() {
+        binding.btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = etUsername.getText().toString();
-                String email = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
-                String passwordConfirm = etPasswordConfirm.getText().toString();
+                String username = binding.etUsername.getText().toString();
+                String email = binding.etEmail.getText().toString();
+                String password = binding.etPassword.getText().toString();
+                String passwordConfirm = binding.etPasswordConfirm.getText().toString();
 
                 presenter.attemptRegistration(username, email, password, passwordConfirm);
             }
         });
 
-        return v;
+        return binding.getRoot();
     }
 
     @Override
@@ -78,32 +67,32 @@ public class RegistrationFragment extends Fragment implements RegistrationContra
 
     @Override
     public void showErrorEmailRequired() {
-        etEmail.setError(getString(R.string.registration_error_field_required));
-        etEmail.requestFocus();
+        binding.etEmail.setError(getString(R.string.registration_error_field_required));
+        binding.etEmail.requestFocus();
     }
 
     @Override
     public void showErrorEmailInvalid() {
-        etEmail.setError(getString(R.string.registration_error_email_invalid));
-        etEmail.requestFocus();
+        binding.etEmail.setError(getString(R.string.registration_error_email_invalid));
+        binding.etEmail.requestFocus();
     }
 
     @Override
     public void showErrorEmailExist() {
-        etEmail.setError(getString(R.string.registration_error_email_exist));
-        etEmail.requestFocus();
+        binding.etEmail.setError(getString(R.string.registration_error_email_exist));
+        binding.etEmail.requestFocus();
     }
 
     @Override
     public void showErrorUsernameRequired() {
-        etUsername.setError(getString(R.string.registration_error_field_required));
-        etUsername.requestFocus();
+        binding.etUsername.setError(getString(R.string.registration_error_field_required));
+        binding.etUsername.requestFocus();
     }
 
     @Override
     public void showErrorPasswordConfirmRequired() {
-        etPasswordConfirm.setError(getString(R.string.registration_error_field_required));
-        etPasswordConfirm.requestFocus();
+        binding.etPasswordConfirm.setError(getString(R.string.registration_error_field_required));
+        binding.etPasswordConfirm.requestFocus();
     }
 
     @Override
@@ -113,20 +102,20 @@ public class RegistrationFragment extends Fragment implements RegistrationContra
 
     @Override
     public void showErrorUsernameTooShort() {
-        etUsername.setError(getString(R.string.registration_error_username_too_short, MINIMUM_USERNAME_LENGTH));
-        etUsername.requestFocus();
+        binding.etUsername.setError(getString(R.string.registration_error_username_too_short, MINIMUM_USERNAME_LENGTH));
+        binding.etUsername.requestFocus();
     }
 
     @Override
     public void showErrorPasswordTooShort() {
-        etPassword.setError(getString(R.string.registration_error_password_too_short, MINIMUM_PASSWORD_LENGTH));
-        etPassword.requestFocus();
+        binding.etPassword.setError(getString(R.string.registration_error_password_too_short, MINIMUM_PASSWORD_LENGTH));
+        binding.etPassword.requestFocus();
     }
 
     @Override
     public void showErrorPasswordRequired() {
-        etPassword.setError(getString(R.string.registration_error_field_required));
-        etPassword.requestFocus();
+        binding.etPassword.setError(getString(R.string.registration_error_field_required));
+        binding.etPassword.requestFocus();
     }
 
     @Override
@@ -136,21 +125,21 @@ public class RegistrationFragment extends Fragment implements RegistrationContra
 
     @Override
     public void hideErrors() {
-        etEmail.setError(null);
-        etPassword.setError(null);
+        binding.etEmail.setError(null);
+        binding.etPassword.setError(null);
     }
 
     @Override
     public void showProgress() {
         int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-        progressBar.setVisibility(View.VISIBLE);
-        progressBar.animate().setDuration(shortAnimTime).alpha(1);
+        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.progressBar.animate().setDuration(shortAnimTime).alpha(1);
     }
 
     @Override
     public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-        progressBar.animate().cancel();
+        binding.progressBar.setVisibility(View.GONE);
+        binding.progressBar.animate().cancel();
     }
 
     @Override

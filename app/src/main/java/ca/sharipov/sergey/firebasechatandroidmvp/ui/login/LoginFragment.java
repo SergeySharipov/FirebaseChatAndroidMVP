@@ -1,7 +1,7 @@
 package ca.sharipov.sergey.firebasechatandroidmvp.ui.login;
 
-
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,11 +9,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import ca.sharipov.sergey.firebasechatandroidmvp.R;
+import ca.sharipov.sergey.firebasechatandroidmvp.databinding.FragmentLoginBinding;
 import ca.sharipov.sergey.firebasechatandroidmvp.ui.main.MainActivity;
 import ca.sharipov.sergey.firebasechatandroidmvp.ui.registration.RegistrationActivity;
 
@@ -21,9 +20,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     private LoginContract.Presenter presenter;
 
-    private EditText etEmail;
-    private EditText etPassword;
-    private ProgressBar progressBar;
+    private FragmentLoginBinding binding;
 
     public LoginFragment() {
     } // Required empty public constructor
@@ -37,30 +34,25 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_login, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
 
-        etEmail = v.findViewById(R.id.et_email);
-        etPassword = v.findViewById(R.id.et_password);
-
-        progressBar = v.findViewById(R.id.progress_bar);
-
-        v.findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
+        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
+                String email = binding.etEmail.getText().toString();
+                String password = binding.etPassword.getText().toString();
 
                 presenter.attemptLogin(email, password);
             }
         });
-        v.findViewById(R.id.btn_registration).setOnClickListener(new View.OnClickListener() {
+        binding.btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchRegistrationActivity();
             }
         });
 
-        return v;
+        return binding.getRoot();
     }
 
     @Override
@@ -77,32 +69,32 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     @Override
     public void showErrorEmailRequired() {
-        etEmail.setError(getString(R.string.login_error_field_required));
-        etEmail.requestFocus();
+        binding.etEmail.setError(getString(R.string.login_error_field_required));
+        binding.etEmail.requestFocus();
     }
 
     @Override
     public void showErrorEmailInvalid() {
-        etEmail.setError(getString(R.string.login_error_email_invalid));
-        etEmail.requestFocus();
+        binding.etEmail.setError(getString(R.string.login_error_email_invalid));
+        binding.etEmail.requestFocus();
     }
 
     @Override
     public void showErrorEmailNotExist() {
-        etEmail.setError(getString(R.string.login_error_email_not_exist));
-        etEmail.requestFocus();
+        binding.etEmail.setError(getString(R.string.login_error_email_not_exist));
+        binding.etEmail.requestFocus();
     }
 
     @Override
     public void showErrorPasswordRequired() {
-        etPassword.setError(getString(R.string.login_error_field_required));
-        etPassword.requestFocus();
+        binding.etPassword.setError(getString(R.string.login_error_field_required));
+        binding.etPassword.requestFocus();
     }
 
     @Override
     public void showErrorWrongPassword() {
-        etPassword.setError(getString(R.string.login_error_wrong_password));
-        etPassword.requestFocus();
+        binding.etPassword.setError(getString(R.string.login_error_wrong_password));
+        binding.etPassword.requestFocus();
     }
 
     @Override
@@ -112,21 +104,21 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     @Override
     public void hideErrors() {
-        etEmail.setError(null);
-        etPassword.setError(null);
+        binding.etEmail.setError(null);
+        binding.etPassword.setError(null);
     }
 
     @Override
     public void showProgress() {
         int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-        progressBar.setVisibility(View.VISIBLE);
-        progressBar.animate().setDuration(shortAnimTime).alpha(1);
+        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.progressBar.animate().setDuration(shortAnimTime).alpha(1);
     }
 
     @Override
     public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-        progressBar.animate().cancel();
+        binding.progressBar.setVisibility(View.GONE);
+        binding.progressBar.animate().cancel();
     }
 
     @Override
