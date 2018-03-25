@@ -13,7 +13,6 @@ class MainPresenter implements MainContract.Presenter, FirebaseAuth.AuthStateLis
 
     MainPresenter() {
         firebaseAuth = FirebaseAuth.getInstance();
-//        firebaseAuth.signOut();
     }
 
     @Override

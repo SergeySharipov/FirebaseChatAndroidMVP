@@ -8,24 +8,36 @@ interface RegistrationContract {
 
         void showErrorEmailRequired();
 
-        void showErrorEmailInvalid();
-
         void showErrorPasswordRequired();
 
-        void showErrorPasswordTooShort();
+        void showErrorEmailInvalid();
 
-        void showErrorConfirmPasswordRequired();
+        void showErrorRegistration();
 
-        void showErrorPasswordsNotSame();
+        void hideErrors();
+
+        void showProgress();
+
+        void hideProgress();
+
+        void launchMainActivity();
+
+        void showErrorEmailExist();
 
         void showErrorUsernameRequired();
 
+        void showErrorPasswordConfirmRequired();
+
+        void showErrorPasswordsNotSame();
+
         void showErrorUsernameTooShort();
+
+        void showErrorPasswordTooShort();
     }
 
     interface Presenter extends BasePresenter<View> {
 
-
+        void attemptRegistration(String username, String email, String password, String passwordConfirm);
     }
 
     interface Model {

@@ -22,8 +22,10 @@
     <string name="registration_error_field_required">This field is required</string>
     <string name="registration_error_email_invalid">This email address is invalid</string>
     <string name="registration_error_password_too_short">This password is too short, minimum length is %1$d characters</string>
-    <string name="registration_error_password_not_same">This passwords aren\'t same</string>
+    <string name="registration_error_passwords_not_same">This passwords aren\'t same</string>
     <string name="registration_error_username_too_short">This username is too short, minimum length is %1$d characters</string>
+    <string name="registration_error">Registration error</string>
+    <string name="registration_error_email_exist">The email address is already in use by another account</string>
     <string name="registration_hint_email">Email</string>
     <string name="registration_hint_password">Password</string>
     <string name="registration_hint_confirm_password">Confirm Password</string>
@@ -50,7 +52,6 @@
     <!-- String needs to relocate to specific screen -->
     <!-- Don't touch string with name: _strings_needs_to_relocate_to_specific_screen -->
     <string name="_strings_needs_to_relocate_to_specific_screen" />
-
 
 
 </resources>

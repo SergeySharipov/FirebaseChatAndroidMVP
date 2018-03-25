@@ -16,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,12 +93,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         switch (id) {
             case R.id.nav_camera:
-                // Handle the camera action
+
                 break;
             case R.id.nav_gallery:
 
@@ -110,8 +111,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_share:
 
                 break;
-            case R.id.nav_send:
-
+            case R.id.nav_log_out:
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                firebaseAuth.signOut();
                 break;
         }
 

@@ -2,15 +2,18 @@ package ca.sharipov.sergey.firebasechatandroidmvp.ui.login;
 
 import android.text.TextUtils;
 
-class LoginPresenter implements LoginContract.Presenter {
+import ca.sharipov.sergey.firebasechatandroidmvp.data.AuthorizationContract;
+import ca.sharipov.sergey.firebasechatandroidmvp.data.AuthorizationModel;
+
+class LoginPresenter implements LoginContract.Presenter, AuthorizationContract.Presenter {
 
     private static final String TAG = "LoginPresenter";
 
     private LoginContract.View view;
-    private LoginContract.Model model;
+    private AuthorizationContract.Model model;
 
     LoginPresenter() {
-        model = new LoginModel(this);
+        model = new AuthorizationModel(this);
     }
 
     @Override
@@ -27,15 +30,14 @@ class LoginPresenter implements LoginContract.Presenter {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    private boolean isEmpty(String string) {
-        return TextUtils.isEmpty(string);
-    }
-
     @Override
     public void attemptLogin(String email, String password) {
         view.hideErrors();
 
-        if (isEmpty(email)) {
+        email = email.trim();
+        password = password.trim();
+
+        if (TextUtils.isEmpty(email)) {
             view.showErrorEmailRequired();
             return;
         }
@@ -45,7 +47,7 @@ class LoginPresenter implements LoginContract.Presenter {
             return;
         }
 
-        if (isEmpty(password)) {
+        if (TextUtils.isEmpty(password)) {
             view.showErrorPasswordRequired();
             return;
         }
@@ -56,14 +58,14 @@ class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void signInSuccess() {
+    public void onSuccessAuthorization() {
         view.hideProgress();
 
         view.launchMainActivity();
     }
 
     @Override
-    public void signInFailure(String errorCode) {
+    public void onFailureAuthorization(String errorCode) {
         view.hideProgress();
 
         if (errorCode != null) {
@@ -83,5 +85,4 @@ class LoginPresenter implements LoginContract.Presenter {
             }
         }
     }
-
 }
