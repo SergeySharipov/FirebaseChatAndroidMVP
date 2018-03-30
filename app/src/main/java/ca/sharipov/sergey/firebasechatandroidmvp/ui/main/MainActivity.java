@@ -22,9 +22,10 @@ import java.util.List;
 
 import ca.sharipov.sergey.firebasechatandroidmvp.R;
 import ca.sharipov.sergey.firebasechatandroidmvp.databinding.ActivityMainBinding;
+import ca.sharipov.sergey.firebasechatandroidmvp.ui.contacts.ContactsActivity;
 import ca.sharipov.sergey.firebasechatandroidmvp.ui.login.LoginActivity;
 import ca.sharipov.sergey.firebasechatandroidmvp.ui.main.chats.ChatsFragment;
-import ca.sharipov.sergey.firebasechatandroidmvp.ui.main.contacts.ContactsFragment;
+import ca.sharipov.sergey.firebasechatandroidmvp.ui.main.mycontacts.MyContactsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ChatsFragment(), "CHATS");
         adapter.addFragment(new ChatsFragment(), "GROUP CHATS");    //TODO GROUP CHATS
-        adapter.addFragment(new ContactsFragment(), "CONTACTS");
+        adapter.addFragment(new MyContactsFragment(), "CONTACTS");
 
         viewPager.setAdapter(adapter);
 
@@ -95,7 +96,8 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_camera:
-
+                Intent intent = new Intent(MainActivity.this, ContactsActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_gallery:
 

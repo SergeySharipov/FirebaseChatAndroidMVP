@@ -36,7 +36,7 @@ public class RegistrationFragment extends Fragment implements RegistrationContra
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_registration, container, false);
 
         binding.btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override

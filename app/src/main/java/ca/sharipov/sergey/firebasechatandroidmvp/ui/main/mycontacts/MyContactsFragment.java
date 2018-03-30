@@ -1,4 +1,4 @@
-package ca.sharipov.sergey.firebasechatandroidmvp.ui.main.contacts;
+package ca.sharipov.sergey.firebasechatandroidmvp.ui.main.mycontacts;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,11 +16,11 @@ import ca.sharipov.sergey.firebasechatandroidmvp.R;
 import ca.sharipov.sergey.firebasechatandroidmvp.ui.main.dummy.DummyContent;
 import ca.sharipov.sergey.firebasechatandroidmvp.ui.main.dummy.DummyContent.DummyItem;
 
-public class ContactsFragment extends Fragment {
+public class MyContactsFragment extends Fragment {
 
     private OnListFragmentInteractionListener mListener;
 
-    public ContactsFragment() {
+    public MyContactsFragment() {
     } // Required empty public constructor
 
     @Override
@@ -96,9 +96,9 @@ public class ContactsFragment extends Fragment {
 class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerViewAdapter.ViewHolder> {
 
     private final List<DummyItem> mValues;
-    private final ContactsFragment.OnListFragmentInteractionListener mListener;
+    private final MyContactsFragment.OnListFragmentInteractionListener mListener;
 
-    ContactsRecyclerViewAdapter(List<DummyItem> items, ContactsFragment.OnListFragmentInteractionListener listener) {
+    ContactsRecyclerViewAdapter(List<DummyItem> items, MyContactsFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }

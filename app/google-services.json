@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "985715304810",
+    "firebase_url": "https://fir-chatmvp.firebaseio.com",
+    "project_id": "fir-chatmvp",
+    "storage_bucket": "fir-chatmvp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985715304810:android:944b4b6eeb61e1bb",
+        "android_client_info": {
+          "package_name": "ca.sharipov.sergey.firebasechatandroidmvp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985715304810-cppekdlcpf8lv8t3s79ef3pjdn2rctin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe5zVbqUoCr16lJe29_fxDpV8r_NhwXUQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

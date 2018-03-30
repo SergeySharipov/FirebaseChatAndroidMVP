@@ -1,5 +1,4 @@
-package ca.sharipov.sergey.firebasechatandroidmvp.ui.main.contacts;
-
+package ca.sharipov.sergey.firebasechatandroidmvp.ui.contacts;
 
 class ContactsPresenter implements ContactsContract.Presenter {
 
@@ -15,4 +14,8 @@ class ContactsPresenter implements ContactsContract.Presenter {
         this.view = null;
     }
 
+    @Override
+    public void addContactToMyContacts(String id) {
+
+    }
 }

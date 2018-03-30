@@ -1,7 +1,6 @@
 package ca.sharipov.sergey.firebasechatandroidmvp.data;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -12,11 +11,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import ca.sharipov.sergey.firebasechatandroidmvp.utils.AppSharedPrefHelper;
+import timber.log.Timber;
+
 import static ca.sharipov.sergey.firebasechatandroidmvp.AppConstants.USERS_CHILD;
 
 public class AuthorizationModel implements AuthorizationContract.Model, OnFailureListener {
-
-    private static final String TAG = "AuthorizationModel";
 
     private AuthorizationContract.Presenter presenter;
 
@@ -40,6 +40,8 @@ public class AuthorizationModel implements AuthorizationContract.Model, OnFailur
 
                         User user = new User(username, email);
                         addAdditionalUserInfoToDb(userId, user);
+
+                        AppSharedPrefHelper.putCurrentUserId(authResult.getUser().getUid());
                     }
                 })
                 .addOnFailureListener(this);
@@ -64,6 +66,7 @@ public class AuthorizationModel implements AuthorizationContract.Model, OnFailur
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
+                        AppSharedPrefHelper.putCurrentUserId(authResult.getUser().getUid());
                         presenter.onSuccessAuthorization();
                     }
                 })
@@ -72,7 +75,7 @@ public class AuthorizationModel implements AuthorizationContract.Model, OnFailur
 
     @Override
     public void onFailure(@NonNull Exception e) {
-        Log.w(TAG, "onFailureAuthorization: " + e.getMessage());
+        Timber.w(e);
         if (e instanceof FirebaseAuthException) {
             String errorCode = ((FirebaseAuthException) e).getErrorCode();
             presenter.onFailureAuthorization(errorCode);
