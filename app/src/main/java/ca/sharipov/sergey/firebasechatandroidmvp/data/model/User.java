@@ -1,8 +1,11 @@
-package ca.sharipov.sergey.firebasechatandroidmvp.data;
+package ca.sharipov.sergey.firebasechatandroidmvp.data.model;
+
+import java.util.Map;
 
 public class User {
     private String username;
     private String email;
+    private Map<String, Boolean> contactList;
 
     public User() {
     }
@@ -26,5 +29,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Map<String, Boolean> getContactList() {
+        return contactList;
+    }
+
+    public void setContactList(Map<String, Boolean> contactList) {
+        this.contactList = contactList;
     }
 }

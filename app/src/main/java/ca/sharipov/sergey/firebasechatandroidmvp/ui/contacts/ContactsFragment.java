@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import ca.sharipov.sergey.firebasechatandroidmvp.R;
-import ca.sharipov.sergey.firebasechatandroidmvp.data.User;
+import ca.sharipov.sergey.firebasechatandroidmvp.data.model.User;
 import ca.sharipov.sergey.firebasechatandroidmvp.databinding.FragmentContactsListBinding;
 
 import static ca.sharipov.sergey.firebasechatandroidmvp.AppConstants.USERS_CHILD;
@@ -92,6 +92,13 @@ public class ContactsFragment extends Fragment implements ContactsContract.View 
                 mView = view;
                 mIdView = view.findViewById(R.id.id);
                 mContentView = view.findViewById(R.id.content);
+
+                view.findViewById(R.id.btn_add).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        presenter.addContactToMyContacts(id, mItem.getUsername());
+                    }
+                });
             }
 
             void bind(final String id, User item) {
@@ -100,13 +107,6 @@ public class ContactsFragment extends Fragment implements ContactsContract.View 
 
                 mIdView.setText(mItem.getEmail());
                 mContentView.setText(mItem.getUsername());
-
-                mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        presenter.addContactToMyContacts(id);
-                    }
-                });
             }
         }
     }

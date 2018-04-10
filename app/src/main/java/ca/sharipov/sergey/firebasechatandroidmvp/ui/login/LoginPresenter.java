@@ -2,12 +2,12 @@ package ca.sharipov.sergey.firebasechatandroidmvp.ui.login;
 
 import android.text.TextUtils;
 
-import ca.sharipov.sergey.firebasechatandroidmvp.data.AuthorizationContract;
-import ca.sharipov.sergey.firebasechatandroidmvp.data.AuthorizationModel;
+import com.google.firebase.auth.FirebaseUser;
+
+import ca.sharipov.sergey.firebasechatandroidmvp.data.autharization.AuthorizationContract;
+import ca.sharipov.sergey.firebasechatandroidmvp.data.autharization.AuthorizationModel;
 
 class LoginPresenter implements LoginContract.Presenter, AuthorizationContract.Presenter {
-
-    private static final String TAG = "LoginPresenter";
 
     private LoginContract.View view;
     private AuthorizationContract.Model model;
@@ -58,7 +58,7 @@ class LoginPresenter implements LoginContract.Presenter, AuthorizationContract.P
     }
 
     @Override
-    public void onSuccessAuthorization() {
+    public void onSuccessAuthorization(FirebaseUser user) {
         view.hideProgress();
 
         view.launchMainActivity();

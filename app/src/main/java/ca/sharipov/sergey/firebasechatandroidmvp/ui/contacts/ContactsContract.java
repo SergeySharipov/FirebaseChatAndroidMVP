@@ -10,7 +10,7 @@ interface ContactsContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void addContactToMyContacts(String id);
+        void addContactToMyContacts(String id, String username);
 
     }
 

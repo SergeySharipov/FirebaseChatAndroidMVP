@@ -1,4 +1,4 @@
-package ca.sharipov.sergey.firebasechatandroidmvp.utils;
+package ca.sharipov.sergey.firebasechatandroidmvp.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;

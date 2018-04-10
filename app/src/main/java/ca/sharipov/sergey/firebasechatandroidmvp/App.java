@@ -2,7 +2,7 @@ package ca.sharipov.sergey.firebasechatandroidmvp;
 
 import android.app.Application;
 
-import ca.sharipov.sergey.firebasechatandroidmvp.utils.AppSharedPrefHelper;
+import ca.sharipov.sergey.firebasechatandroidmvp.data.AppSharedPrefHelper;
 import timber.log.Timber;
 
 public class App extends Application {

@@ -2,21 +2,27 @@ package ca.sharipov.sergey.firebasechatandroidmvp.ui.registration;
 
 import android.text.TextUtils;
 
-import ca.sharipov.sergey.firebasechatandroidmvp.data.AuthorizationContract;
-import ca.sharipov.sergey.firebasechatandroidmvp.data.AuthorizationModel;
+import com.google.firebase.auth.FirebaseUser;
+
+import ca.sharipov.sergey.firebasechatandroidmvp.data.autharization.AuthorizationContract;
+import ca.sharipov.sergey.firebasechatandroidmvp.data.autharization.AuthorizationModel;
+import ca.sharipov.sergey.firebasechatandroidmvp.data.db.DbContract;
+import ca.sharipov.sergey.firebasechatandroidmvp.data.db.DbModel;
+import ca.sharipov.sergey.firebasechatandroidmvp.data.model.User;
 
 import static ca.sharipov.sergey.firebasechatandroidmvp.AppConstants.MINIMUM_PASSWORD_LENGTH;
 import static ca.sharipov.sergey.firebasechatandroidmvp.AppConstants.MINIMUM_USERNAME_LENGTH;
 
-class RegistrationPresenter implements RegistrationContract.Presenter, AuthorizationContract.Presenter {
-
-    private static final String TAG = "RegistrationPresenter";
+class RegistrationPresenter implements RegistrationContract.Presenter,
+        AuthorizationContract.Presenter, DbContract.Presenter {
 
     private RegistrationContract.View view;
-    private AuthorizationContract.Model model;
+    private AuthorizationContract.Model authorizationModel;
+    private DbContract.Model dbModel;
 
     RegistrationPresenter() {
-        model = new AuthorizationModel(this);
+        authorizationModel = new AuthorizationModel(this);
+        dbModel = new DbModel(this);
     }
 
     @Override
@@ -80,7 +86,7 @@ class RegistrationPresenter implements RegistrationContract.Presenter, Authoriza
 
         view.showProgress();
 
-        model.createUser(username, email, password);
+        authorizationModel.createUser(email, password);
     }
 
     private boolean isEmailValid(String email) {
@@ -96,10 +102,17 @@ class RegistrationPresenter implements RegistrationContract.Presenter, Authoriza
     }
 
     @Override
-    public void onSuccessAuthorization() {
-        view.hideProgress();
+    public void onSuccessAuthorization(FirebaseUser firebaseUser) {
+        addAdditionalUserInfoToDb(firebaseUser);
+    }
 
-        view.launchMainActivity();
+    private void addAdditionalUserInfoToDb(FirebaseUser firebaseUser) {
+        String userId = firebaseUser.getUid();
+        String email = firebaseUser.getEmail();
+
+        User user = new User("username", email);//todo use proper username
+
+        dbModel.addAdditionalUserInfoToDb(userId, user);
     }
 
     @Override
@@ -120,5 +133,21 @@ class RegistrationPresenter implements RegistrationContract.Presenter, Authoriza
                     view.showErrorRegistration();
             }
         }
+    }
+
+    @Override
+    public void onDbSuccess() {
+        view.hideProgress();
+
+        view.launchMainActivity();
+    }
+
+    @Override
+    public void onDbFailure() {
+        authorizationModel.deleteCurrentUser();
+
+        view.hideProgress();
+
+        view.showErrorRegistration();
     }
 }
